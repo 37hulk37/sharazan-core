@@ -11,7 +11,7 @@ class AppBuilder {
     }
 
     fun <T : Any> get(type: KClass<T>): T? {
-        return extensions[type] as T?
+        return extensions.values.firstOrNull { type.isInstance(it) } as? T
     }
 
     inline fun <reified T : Any> get(): T? =

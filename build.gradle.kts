@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.3.0"
+    kotlin("plugin.serialization") version "2.3.0"
     `maven-publish`
 }
 
@@ -12,6 +13,7 @@ repositories {
 
 dependencies {
     api("io.insert-koin:koin-core:4.2.0-RC1")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-properties:1.11.0")
 
     testImplementation("io.insert-koin:koin-test:4.2.0-RC1")
     testImplementation(kotlin("test"))
