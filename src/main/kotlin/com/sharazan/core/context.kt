@@ -14,6 +14,6 @@ inline fun <reified T: Any> Request.getContext(name: String): T {
 inline fun <reified T: Any> Request.withContext(name: String, value: T): Request {
     val keyLens = RequestKey.required<T>(name)
 
-    return keyLens.invoke(value,this)
+    return keyLens(value,this)
 }
 

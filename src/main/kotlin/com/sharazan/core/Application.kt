@@ -2,24 +2,22 @@ package com.sharazan.core
 
 import org.koin.core.component.KoinComponent
 import org.slf4j.LoggerFactory
-import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 import kotlin.reflect.KClass
 
 class Application(
     extensions: Map<KClass<*>, Any?>,
-): KoinComponent, Startable, Closeable {
+): KoinComponent, Lifecycle {
 
     private val logger = LoggerFactory.getLogger(Application::class.java)
 
     private val started = AtomicBoolean(false)
 
-    private val startable = extensions.values.filterIsInstance<Startable>()
-    private val closeable = extensions.values.filterIsInstance<Closeable>()
+    private val lifecycles = extensions.values.filterIsInstance<Lifecycle>()
 
     override fun started() {
-        startable.forEach { it.started() }
+        lifecycles.forEach { it.started() }
 
         shutdownHook()
 
@@ -29,7 +27,7 @@ class Application(
     }
 
     fun stop() {
-        closeable.forEach { it.close() }
+        lifecycles.forEach { it.close() }
 
         started.compareAndSet(true,false)
 
