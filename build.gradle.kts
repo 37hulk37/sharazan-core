@@ -9,6 +9,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -16,6 +17,8 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-serialization-properties:1.11.0")
 
     api("org.http4k:http4k-core:6.31.1.0")
+
+    implementation("com.sharazan:logging:1.0-SNAPSHOT")
 
     testImplementation("io.insert-koin:koin-test:4.2.0-RC1")
     testImplementation(kotlin("test"))
