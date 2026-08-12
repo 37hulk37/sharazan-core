@@ -10,7 +10,6 @@ inline fun <reified T: Any> Request.getContext(name: String): T {
     return keyLens(this)
 }
 
-
 inline fun <reified T: Any> Request.withContext(name: String, value: T): Request {
     val keyLens = RequestKey.required<T>(name)
 

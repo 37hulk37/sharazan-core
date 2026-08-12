@@ -1,24 +1,33 @@
 package com.sharazan.core
 
-import kotlin.reflect.KClass
+import com.sharazan.core.pipeline.Phase
+import com.sharazan.core.pipeline.Pipeline
+import org.koin.core.context.startKoin
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
-class AppBuilder {
+class AppBuilder() {
 
-    private val extensions = mutableMapOf<KClass<*>, Any>()
+    private val modules = mutableListOf<Module>()
 
-    fun <T : Any> install(config: T) {
-        extensions[config::class] = config
+    fun addModule(module: Module) {
+        modules.add(module)
     }
 
-    fun <T : Any> get(type: KClass<T>): T? {
-        return extensions.values.firstOrNull { type.isInstance(it) } as? T
-    }
-
-    inline fun <reified T : Any> get(): T? =
-        get(T::class)
 
     fun build(): Application {
-        return Application(extensions.toMap())
+        val pipelineModule = module {
+            single {
+                Pipeline(getAll<Phase>())
+            }
+        }
+        modules.add(pipelineModule)
+
+        val koinApplication = startKoin {
+            modules(modules)
+        }
+
+        return Application(koinApplication.koin)
     }
 
 }

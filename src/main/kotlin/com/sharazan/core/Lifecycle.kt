@@ -1,9 +1,9 @@
 package com.sharazan.core
 
-import java.io.Closeable
+interface Lifecycle {
 
-interface Lifecycle: Closeable {
+    fun onStart()
 
-    fun started()
+    fun onStop()
 
 }

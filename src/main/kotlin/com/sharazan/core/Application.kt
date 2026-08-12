@@ -1,40 +1,44 @@
 package com.sharazan.core
 
-import org.koin.core.component.KoinComponent
+import org.koin.core.Koin
 import org.slf4j.LoggerFactory
+import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
-import kotlin.reflect.KClass
+
 
 class Application(
-    extensions: Map<KClass<*>, Any?>,
-): KoinComponent, Lifecycle {
+    koin: Koin,
+): Lifecycle, Closeable {
 
     private val logger = LoggerFactory.getLogger(Application::class.java)
 
     private val started = AtomicBoolean(false)
 
-    private val lifecycles = extensions.values.filterIsInstance<Lifecycle>()
+    private val lifecycles = koin.getAll<Lifecycle>()
 
-    override fun started() {
-        lifecycles.forEach { it.started() }
+
+    override fun onStart() {
+        lifecycles.forEach { it.onStart() }
 
         shutdownHook()
 
         started.compareAndSet(false,true)
 
-        logger.trace("Application started")
+        logger.info("Application started")
     }
 
-    fun stop() {
-        lifecycles.forEach { it.close() }
+    override fun onStop() {
+        lifecycles.forEach { it.onStop() }
 
         started.compareAndSet(true,false)
 
-        logger.trace("Application stopped")
+        logger.info("Application stopped")
     }
 
-    override fun close() = stop()
+    override fun close() {
+        onStop()
+    }
 
     private fun shutdownHook() {
         Runtime.getRuntime()

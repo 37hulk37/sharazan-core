@@ -2,19 +2,21 @@ package com.sharazan.core.configuration
 
 import com.sharazan.core.AppBuilder
 import com.sharazan.core.properties.ConfigurationSource
-import org.koin.core.Koin
+import org.koin.dsl.module
 import java.io.FileInputStream
 import java.util.Properties
 
-fun AppBuilder.koin(koin: Koin) = apply {
-    install(koin)
+fun AppBuilder.properties(path: String) = apply {
+    val configurationSource = loadProperties(path)
+
+    val propertiesModule = module {
+        single { configurationSource }
+    }
+
+    addModule(propertiesModule)
 }
 
-fun AppBuilder.properties(source: ConfigurationSource) = apply {
-    install(source)
-}
-
-fun loadProperties(path: String): ConfigurationSource {
+private fun loadProperties(path: String): ConfigurationSource {
     val properties = Properties()
 
     FileInputStream(path)
