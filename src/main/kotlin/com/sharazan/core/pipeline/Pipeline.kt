@@ -23,7 +23,7 @@ class Pipeline(
         }
     }
 
-    fun postProcess(response: Response): Response {
+    fun postProcess(request: Request, response: Response): Response {
         if (phases.isEmpty()) {
             return response
         }
@@ -31,7 +31,7 @@ class Pipeline(
         logger.trace("Post-processing response {}", response)
 
         return phases.fold(response) { current, phase ->
-            phase.postProcess(current)
+            phase.postProcess(request, current)
         }
     }
 

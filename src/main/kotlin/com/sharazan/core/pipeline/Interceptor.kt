@@ -7,6 +7,6 @@ interface Interceptor {
 
     fun before(request: Request): Request = request
 
-    fun after(response: Response): Response = response
+    fun after(request: Request, response: Response): Response = response
 
 }

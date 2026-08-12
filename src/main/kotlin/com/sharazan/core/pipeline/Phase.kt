@@ -19,11 +19,11 @@ class Phase(
         }
     }
 
-    fun postProcess(response: Response): Response {
+    fun postProcess(request: Request, response: Response): Response {
         logger.trace("Started post-processing response: {}", response)
 
         return interceptors.asReversed().fold(response) { current, interceptor ->
-            interceptor.after(current)
+            interceptor.after(request, current)
         }
     }
 
