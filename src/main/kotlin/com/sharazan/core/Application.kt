@@ -1,6 +1,6 @@
 package com.sharazan.core
 
-import org.koin.core.Koin
+import org.koin.core.KoinApplication
 import org.slf4j.LoggerFactory
 import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
@@ -8,14 +8,14 @@ import kotlin.concurrent.thread
 
 
 class Application(
-    koin: Koin,
+    private val koinApplication: KoinApplication,
 ): Lifecycle, Closeable {
 
     private val logger = LoggerFactory.getLogger(Application::class.java)
 
     private val started = AtomicBoolean(false)
 
-    private val lifecycles = koin.getAll<Lifecycle>()
+    private val lifecycles = koinApplication.koin.getAll<Lifecycle>()
 
 
     override fun onStart() {
@@ -30,6 +30,8 @@ class Application(
 
     override fun onStop() {
         lifecycles.forEach { it.onStop() }
+        koinApplication.close()
+
 
         started.compareAndSet(true,false)
 

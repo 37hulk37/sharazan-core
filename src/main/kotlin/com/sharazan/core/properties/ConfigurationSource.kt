@@ -11,9 +11,11 @@ class ConfigurationSource(
 
     @OptIn(ExperimentalSerializationApi::class)
     inline fun <reified T> get(prefix: String): T {
+        val scopedPrefix = prefix + "."
+
         val scoped = properties.stringPropertyNames()
-            .filter { it.startsWith(prefix) }
-            .associate { it.removePrefix(prefix) to properties.getProperty(it) }
+            .filter { it.startsWith(scopedPrefix) }
+            .associate { it.removePrefix(scopedPrefix) to properties.getProperty(it) }
 
         return PropertiesFormat.decodeFromStringMap(scoped)
     }

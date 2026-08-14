@@ -28,7 +28,7 @@ class AppBuilder(
         val koinApplication = startKoin {
             modules(modules)
         }
-        return Application(koinApplication.koin)
+        return Application(koinApplication)
     }
 
 }
