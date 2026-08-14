@@ -12,7 +12,7 @@ class Phase(
     private val logger = LoggerFactory.getLogger(Phase::class.java)
 
     fun preProcess(request: Request): Request {
-        logger.trace("Started pre-processing request: {}", request)
+        logger.trace("Started phase $name pre-processing request: {}", request)
 
         return interceptors.fold(request) { current, interceptor ->
             interceptor.before(current)
@@ -20,7 +20,7 @@ class Phase(
     }
 
     fun postProcess(request: Request, response: Response): Response {
-        logger.trace("Started post-processing response: {}", response)
+        logger.trace("Started phase $name post-processing response: {}", response)
 
         return interceptors.asReversed().fold(response) { current, interceptor ->
             interceptor.after(request, current)
