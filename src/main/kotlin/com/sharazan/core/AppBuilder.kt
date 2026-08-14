@@ -6,9 +6,11 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class AppBuilder() {
+class AppBuilder(
+    appModule: Module
+) {
 
-    private val modules = mutableListOf<Module>()
+    private val modules = mutableListOf<Module>(appModule)
 
     fun addModule(module: Module) {
         modules.add(module)
