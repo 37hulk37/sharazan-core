@@ -28,7 +28,7 @@ dependencies {
 
     api("org.http4k:http4k-core:6.31.1.0")
 
-    implementation("com.github.37hulk37:sharazan-logging:1.0.0")
+    implementation("com.github.37hulk37:sharazan-logging:1.0.1")
 
     testImplementation("io.insert-koin:koin-test:4.2.0-RC1")
     testImplementation(kotlin("test"))
