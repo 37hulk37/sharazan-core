@@ -16,7 +16,7 @@ class Pipeline(
             return request
         }
 
-        logger.trace("Pre-processing request: {}", request)
+        logger.trace("Pre-processing request: {} with id", request)
 
         return phases.fold(request) { current, phase ->
             phase.preProcess(current)
