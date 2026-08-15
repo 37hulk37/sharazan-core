@@ -1,5 +1,8 @@
 # sharazan-core
 
+[![](https://jitpack.io/v/37hulk37/sharazan-core.svg)](https://jitpack.io/#37hulk37/sharazan-core)
+
+
 **Sharazan** — модульный бэкенд-фреймворк на Kotlin, вдохновлённый архитектурой Ktor (declare-then-start композиция через Koin, без Spring-магии).
 
 **core** — application bootstrap / composition root: `AppBuilder` (аккумулятор Koin-модулей), `Application`/`Lifecycle`, обобщённый request/response `pipeline` (`Interceptor`/`Phase`/`Pipeline`), request-scoped context-хелперы и загрузка конфигурации из property-файлов.

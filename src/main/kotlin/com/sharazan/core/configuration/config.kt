@@ -1,24 +1,28 @@
 package com.sharazan.core.configuration
 
 import com.sharazan.core.AppBuilder
-import com.sharazan.core.properties.ConfigurationSource
+import com.sharazan.core.source.ConfigurationSource
+import com.sharazan.core.source.properties.PropertiesConfigurationLoader
+import com.sharazan.core.source.yaml.YamlConfigurationLoader
 import org.koin.dsl.module
-import java.io.FileInputStream
-import java.util.Properties
+import java.io.File
+
 
 fun AppBuilder.properties(path: String) = apply {
     val propertiesModule = module {
-        single { loadProperties(path) }
+        single<ConfigurationSource> { configurationSource(path) }
     }
 
     addModule(propertiesModule)
 }
 
-private fun loadProperties(path: String): ConfigurationSource {
-    val properties = Properties()
+private fun configurationSource(path: String): ConfigurationSource {
+    val file = File(path)
+    val loader = when(file.extension) {
+        "yaml" -> YamlConfigurationLoader()
+        "properties" -> PropertiesConfigurationLoader()
+        else -> PropertiesConfigurationLoader()
+    }
 
-    FileInputStream(path)
-        .use { properties.load(it) }
-
-    return ConfigurationSource(properties)
+    return loader.load(path)
 }

@@ -24,6 +24,7 @@ repositories {
 dependencies {
     api("io.insert-koin:koin-core:4.2.0-RC1")
     api("org.jetbrains.kotlinx:kotlinx-serialization-properties:1.11.0")
+    api("com.charleskorn.kaml:kaml:0.83.0")
 
     api("org.http4k:http4k-core:6.31.1.0")
 
