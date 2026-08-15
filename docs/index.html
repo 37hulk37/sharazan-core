@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sharazan</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #0b0d10;
+    --fg: #e8eaed;
+    --muted: #9aa4af;
+    --accent: #7dd3fc;
+    --card: #14171c;
+    --border: #262b33;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #fafafa;
+      --fg: #1a1d21;
+      --muted: #5b6570;
+      --accent: #0369a1;
+      --card: #ffffff;
+      --border: #e4e7eb;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55;
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  h1 {
+    font-size: 2.4rem;
+    margin: 0 0 0.5rem;
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin: 0 0 3rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+    margin: 3rem 0 1rem;
+  }
+  .modules {
+    display: grid;
+    gap: 0.9rem;
+  }
+  .module {
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+  }
+  .module h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+  }
+  .module h3 a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .module h3 a:hover {
+    color: var(--accent);
+  }
+  .module p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  code {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.85em;
+  }
+  pre {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+  }
+  footer {
+    margin-top: 4rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Sharazan</h1>
+  <p class="tagline">Самописный модульный бэкенд-фреймворк на Kotlin, вдохновлённый архитектурой Ktor — declare-then-start композиция через Koin, без Spring-магии.</p>
+
+  <h2>Модули</h2>
+  <div class="modules">
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-core">core</a></h3>
+      <p>Application bootstrap / composition root: <code>AppBuilder</code>, <code>Lifecycle</code>, обобщённый request/response pipeline.</p>
+    </div>
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-logging">logging</a></h3>
+      <p>Общая MDC-вокабулярия и slf4j-зависимости, пробрасываемые транзитивно всем остальным модулям.</p>
+    </div>
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-http">http</a></h3>
+      <p>Coroutine-based HTTP-фреймворк: hand-rolled Netty-транспорт, http4k-типы, роутинг и pipeline из <code>core</code>.</p>
+    </div>
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-db">db</a></h3>
+      <p>Postgres-доступ через Exposed + HikariCP.</p>
+    </div>
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-security">security</a></h3>
+      <p>Hand-rolled, Spring-Security-inspired аутентификация/авторизация: Basic/Form/JWT, сессии, ролевой доступ.</p>
+    </div>
+    <div class="module">
+      <h3><a href="https://github.com/37hulk37/sharazan-app">app</a></h3>
+      <p>Референсное приложение — пример, как эти модули собираются вместе.</p>
+    </div>
+  </div>
+
+  <h2>Установка</h2>
+  <pre>repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
+dependencies {
+    implementation("com.github.37hulk37:sharazan-core:1.0.0")
+    implementation("com.github.37hulk37:sharazan-http:1.0.0")
+}</pre>
+
+  <footer>
+    <a href="https://github.com/37hulk37">37hulk37</a> на GitHub
+  </footer>
+</main>
+</body>
+</html>
