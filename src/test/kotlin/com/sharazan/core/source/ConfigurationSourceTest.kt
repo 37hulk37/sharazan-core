@@ -9,9 +9,6 @@ import kotlin.test.assertEquals
 
 class ConfigurationSourceTest {
 
-    private val properties = TestHttpProperties()
-
-
     @Test
     fun `'yaml' file is loaded and decoded correctly`() {
         val source = YamlConfigurationLoader()
