@@ -7,10 +7,8 @@ import java.io.FileInputStream
 import java.util.Properties
 
 fun AppBuilder.properties(path: String) = apply {
-    val configurationSource = loadProperties(path)
-
     val propertiesModule = module {
-        single { configurationSource }
+        single { loadProperties(path) }
     }
 
     addModule(propertiesModule)
